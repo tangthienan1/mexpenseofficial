@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { ErrorText } from '../components/Text/Text';
-import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { icons, MCOLORS, MFONTS, MSIZES, SignUpScreen } from '../consts';
 
 type LoginProps = {
     navigation: any;
@@ -105,7 +105,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
                         <TouchableOpacity
                             style={loginStyle.bottomText}
-                            onPress={() => navigation.navigate('SignUp')}
+                            onPress={() => navigation.navigate(SignUpScreen)}
                         >
                             <Text style={loginStyle.inputTile}>
                                 New User?

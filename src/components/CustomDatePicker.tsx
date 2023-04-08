@@ -3,18 +3,17 @@ import DatePicker from 'react-native-date-picker';
 
 type CustomDatePickerProps ={
     open?: boolean,
-    date: Date,
+    currentDate: Date,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     setDate: React.Dispatch<any>,
 }
-
-const CustomDatePicker:FC<CustomDatePickerProps> = ({ open, date, setOpen, setDate }) => {
+const CustomDatePicker:FC<CustomDatePickerProps> = ({ open, currentDate, setOpen, setDate }) => {
     return (
         <DatePicker
             mode="date"
             modal
             open={open}
-            date={date}
+            date={currentDate}
             onConfirm={(selectedDate) => {
                 setOpen(false);
                 setDate(selectedDate);

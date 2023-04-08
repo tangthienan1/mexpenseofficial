@@ -18,7 +18,7 @@ import SaveBtn from '../components/SaveBtn';
 import SelectDropDown from '../components/SelectDropDown';
 import { CustomTextInput, TextField } from '../components/TextInput';
 import WelcomeUser from '../components/WelcomeUser';
-import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { GlobalFormatDate, icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 import { useSharedState } from '../contexts';
 import { TagType } from '../type';
 
@@ -52,7 +52,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
     const [description, setDescription] = useState<string | undefined>();
     const [isRequiredRiskAssessment, setIsRequiredRiskAssessment] = useState<boolean>(false);
 
-    console.log('data', {
+    console.log('newTripData', {
         tripName,
         destination,
         budget,
@@ -62,7 +62,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
         isRequiredRiskAssessment,
     });
 
-    const [open, setOpen] = useState(false);
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
     const handleOnSave = () => {
         // const requiredRiskAssessment = isRequiredRiskAssessment
@@ -93,7 +93,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.newTripScreen}>
-            <CustomDatePicker open={open} date={date} setOpen={setOpen} setDate={setDate} />
+            <CustomDatePicker open={isDatePickerOpen} currentDate={date} setOpen={setIsDatePickerOpen} setDate={setDate} />
 
             <ScrollView>
                 <View style={styles.newTripWrapper}>
@@ -114,7 +114,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
 
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1, marginRight: MSIZES.padding }}>
-                                <InputTitle title={'Budget'} />
+                                <InputTitle title="Budget" />
                                 <InputWithIcon
                                     onChangeText={(text) => setBudget(+text)}
                                     icon={<Image source={icons.dollar} />}
@@ -122,13 +122,13 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                             </View>
 
                             <View style={{ flex: 1 }}>
-                                <InputTitle title={'Date'} />
-                                <TouchableOpacity onPress={() => setOpen(true)}>
+                                <InputTitle title="Date" />
+                                <TouchableOpacity onPress={() => setIsDatePickerOpen(true)}>
                                     <InputWithIcon
                                         editable={false}
                                         defaultValue={moment(date)
                                             .startOf('day')
-                                            .format('DD/MM/YYYY')}
+                                            .format(GlobalFormatDate)}
                                         icon={<Image source={icons.date} />}
                                     />
                                 </TouchableOpacity>

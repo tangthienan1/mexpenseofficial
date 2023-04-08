@@ -9,7 +9,7 @@ import InputTitle from '../components/InputTitle';
 import InputWithIcon from '../components/InputWithIcon';
 import SaveBtn from '../components/SaveBtn';
 import { CustomTextInput, TextField } from '../components/TextInput';
-import { icons, MCOLORS, MSIZES } from '../consts';
+import { GlobalFormatDate, icons, LoginScreen, MCOLORS, MSIZES } from '../consts';
 
 type AddExpenseProps = {
     navigation: any;
@@ -21,7 +21,7 @@ const AddExpense: FC<AddExpenseProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.addExpenseScreen}>
-            <CustomDatePicker open={open} date={date} setOpen={setOpen} setDate={setDate} />
+            <CustomDatePicker open={open} currentDate={date} setOpen={setOpen} setDate={setDate} />
 
             <View style={{ marginHorizontal: MSIZES.padding }}>
                 <AddExpenseHeader header="Add Expense" navigation={navigation} />
@@ -50,7 +50,7 @@ const AddExpense: FC<AddExpenseProps> = ({ navigation }) => {
                             <TouchableOpacity onPress={() => setOpen(true)}>
                                 <InputWithIcon
                                     editable={false}
-                                    defaultValue={moment(date).startOf('day').format('DD/MM/YYYY')}
+                                    defaultValue={moment(date).startOf('day').format(GlobalFormatDate)}
                                     icon={<Image source={icons.date} />}
                                 />
                             </TouchableOpacity>
@@ -60,7 +60,7 @@ const AddExpense: FC<AddExpenseProps> = ({ navigation }) => {
                     <InputTitle title={'Comment'} />
                     <TextField />
 
-                    <SaveBtn onPress={() => navigation.navigate('Login')} />
+                    <SaveBtn onPress={() => navigation.navigate(LoginScreen)} />
                 </View>
             </View>
         </SafeAreaView>

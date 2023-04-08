@@ -1,15 +1,20 @@
 import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { icons, MFONTS, MSIZES } from '../consts';
+import { AccountScreen, icons, MFONTS, MSIZES } from '../consts';
 
-const WelcomeUser: FC<{ navigation: any }> = ({ navigation }) => {
+type WelcomeUserProps = {
+    navigation: any;
+}
+
+const WelcomeUser: FC<WelcomeUserProps> = ({ navigation }) => {
+    const tempUserName = "Andy"
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate('Account')}
+            onPress={() => navigation.navigate(AccountScreen)}
             style={styles.WelcomeUserWrapper}
         >
             <Image style={styles.img} source={icons.emptyAvatar} />
-            <Text style={{ ...MFONTS.body2, marginHorizontal: MSIZES.padding }}>Hi Andy!</Text>
+            <Text style={{ ...MFONTS.body2, marginHorizontal: MSIZES.padding }}>Hi {tempUserName}!</Text>
         </TouchableOpacity>
     );
 };

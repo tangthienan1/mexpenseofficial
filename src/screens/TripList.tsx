@@ -16,25 +16,25 @@ import { icons, MCOLORS, MSIZES } from '../consts';
 
 const Trips = [
     {
-        title: "Meeting Mr Cock (Apple's CEO)",
+        tripName: "Meeting Mr Cock (Apple's CEO)",
         date: '14 - oct - 2022',
         tag: 'Business',
         isRequiredRiskAssessment: true,
     },
     {
-        title: 'Cultural Training',
+        tripName: 'Cultural Training',
         date: '14 - oct - 2022',
         tag: 'Business',
         isRequiredRiskAssessment: true,
     },
     {
-        title: "Meeting Mr Cock (Apple's CEO)",
+        tripName: "Meeting Mr Cock (Apple's CEO)",
         date: '14 - oct - 2022',
         tag: 'Family',
         isRequiredRiskAssessment: true,
     },
     {
-        title: "Meeting Mr Cock (Apple's CEO)",
+        tripName: "Meeting Mr Cock (Apple's CEO)",
         date: '14 - oct - 2022',
         tag: 'Personal',
         isRequiredRiskAssessment: false,
@@ -62,7 +62,7 @@ const TripList:FC<TripListProps> = ({ navigation }) => {
             const newFilterTripList =
                 Trips &&
                 Trips.filter((tripItem) =>
-                    tripItem.title.toLowerCase().includes(searchTextRef.current.toLowerCase())
+                    tripItem.tripName.toLowerCase().includes(searchTextRef.current.toLowerCase())
                 );
             newFilterTripList && setFilterTripList(newFilterTripList);
         } else {
@@ -92,7 +92,7 @@ const TripList:FC<TripListProps> = ({ navigation }) => {
         return (
             <TouchableOpacity>
                 <TripSummary
-                    title={item.title}
+                    tripName={item.tripName}
                     date={item.date}
                     tag={item.tag}
                     isRequiredRiskAssessment={item.isRequiredRiskAssessment}

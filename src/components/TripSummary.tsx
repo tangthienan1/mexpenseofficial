@@ -4,13 +4,13 @@ import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 import Tag from './Tag';
 
 export type TripSummaryProps = {
-    title: string;
+    tripName: string;
     date: string;
     tag: string;
     isRequiredRiskAssessment: boolean;
 };
 
-const TripSummary: FC<TripSummaryProps> = ({ title, date, tag, isRequiredRiskAssessment }) => {
+const TripSummary: FC<TripSummaryProps> = ({ tripName, date, tag, isRequiredRiskAssessment }) => {
     const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
         useState<boolean>(false);
     return (
@@ -37,7 +37,7 @@ const TripSummary: FC<TripSummaryProps> = ({ title, date, tag, isRequiredRiskAss
                     </View>
                 </View>
             </Modal>
-            <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{title}</Text>
+            <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{tripName}</Text>
             <View style={styles.contentWrapper}>
                 <Text style={styles.date}>Date: {date}</Text>
                 <Tag tag={tag} />

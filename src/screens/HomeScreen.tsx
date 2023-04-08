@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
     FlatList,
     Image,
@@ -12,7 +12,7 @@ import {
 import Layout from '../components/Layout';
 import TripSummary from '../components/TripSummary';
 import WelcomeUser from '../components/WelcomeUser';
-import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { AddExpenseScreen, icons, MCOLORS, MFONTS, MSIZES, NoteScreen, TripListScreen } from '../consts';
 import { HomeEntriesItemProps } from '../type';
 
 type HomeScreenProps = {
@@ -20,69 +20,90 @@ type HomeScreenProps = {
 };
 
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+    const totalExpense = 123456;
+    const TripInfo = {
+        tripName: 'Temp trip name',
+        destination: 'temp trip destination',
+        budget: '123111',
+        date: 'tempDate',
+        tag: 'dfa',
+        description: 'test description',
+        requiredRiskAssessment: true,
+    };
+
     const expenses = [
         {
-            title: 'Move',
+            type: 'Move',
             amount: 300,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Food',
+            type: 'Food',
             amount: 300,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Hotel',
+            type: 'Hotel',
             amount: 200,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Taxi',
+            type: 'Taxi',
             amount: 100,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Move',
+            type: 'Move',
             amount: 600,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Food',
+            type: 'Food',
             amount: 400,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Hotel',
+            type: 'Hotel',
             amount: 100,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Taxi',
+            type: 'Taxi',
             amount: 700,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Food',
+            type: 'TestHigh',
+            amount: 800,
+            date: 'Sun 30 Oct',
+        },
+        {
+            type: 'Food',
             amount: 400,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Hotel',
+            type: 'Hotel',
             amount: 100,
             date: 'Sun 30 Oct',
         },
         {
-            title: 'Taxi',
+            type: 'Taxi',
             amount: 700,
             date: 'Sun 30 Oct',
         },
     ];
 
-    const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[]>(expenses);
+    const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[] | undefined>();
+
+    useEffect(() => {
+        setExpenseList(expenses)
+    }, [])
+    
     //ExpenseList max length is 8 for display on banner
-    const sortedExpenseList = [...expenseList].sort((prev, next) => -prev.amount + next.amount);
+    const sortedExpenseList = expenseList?.sort((prev, next) => -prev.amount + next.amount);
     const uniqueExpenseListByValue = [
-        ...new Map(sortedExpenseList.map((item) => [item.amount, item])).values(),
+        ...new Map(sortedExpenseList?.map((item) => [item.amount, item])).values(),
     ];
     const majorExpenseList = uniqueExpenseListByValue.slice(0, 6);
 
@@ -94,7 +115,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         );
     }
 
-    function renderBanner({ total } = { total: 12345 }) {
+    function renderBanner(total: number) {
         const BannerHeader = () => {
             return (
                 <View>
@@ -115,7 +136,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
         const renderMajorItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={{ flex: 1, flexDirection: 'row', marginRight: MSIZES.padding }}>
-                <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
+                <Text style={{ ...MFONTS.body4 }}>{item.type}</Text>
                 <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.amount}</Text>
             </View>
         );
@@ -126,7 +147,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 data={majorExpenseList}
                 numColumns={3}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
-                keyExtractor={(item, index) => `_key${index.toString()}`}
+                keyExtractor={(_, index) => `_key${index.toString()}`}
                 renderItem={renderMajorItem}
                 style={styles.bannerWrapper}
             />
@@ -148,14 +169,14 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Text style={{ ...MFONTS.h3 }}>My Trip</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('TripList')}>
+                    <Text style={{ ...MFONTS.h3 }}>Trip Summary</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate(TripListScreen)}>
                         <Text style={{ color: MCOLORS.gray, ...MFONTS.body4 }}>View All</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginBottom: MSIZES.padding }}>
                     <TripSummary
-                        title="Meeting Mr Cock (Apple's CEO)"
+                        tripName={TripInfo.tripName}
                         date="14 - oct - 2022"
                         tag="Business"
                         isRequiredRiskAssessment={true}
@@ -168,7 +189,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                             styles.tripOptionWrapper,
                             { marginRight: MSIZES.padding },
                         ]}
-                        onPress={() => navigation.navigate('AddExpense')}
+                        onPress={() => navigation.navigate(AddExpenseScreen)}
                     >
                         <Image source={icons.expenses} />
                         <Text style={{ fontWeight: 'bold' }}>Expenses</Text>
@@ -183,7 +204,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                             styles.tripOptionWrapper,
                             { marginLeft: MSIZES.padding },
                         ]}
-                        onPress={() => navigation.navigate('Note')}
+                        onPress={() => navigation.navigate(NoteScreen)}
                     >
                         <Image source={icons.bublenote} />
                         <Text style={{ fontWeight: 'bold' }}>Note</Text>
@@ -197,7 +218,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         const HeaderComponent = () => (
             <View>
                 {renderHeader()}
-                {renderBanner()}
+                {renderBanner(totalExpense)}
                 {renderTrip()}
                 {renderRecentEntries()}
             </View>
@@ -219,7 +240,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         const renderItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={styles.recentEntriesItemWrapper}>
                 <View>
-                    <Text style={{ ...MFONTS.h3 }}>{item.title}</Text>
+                    <Text style={{ ...MFONTS.h3 }}>{item.type}</Text>
                     <Text>{item.date}</Text>
                 </View>
                 <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>${item.amount}</Text>
@@ -299,46 +320,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
-    //need to remove
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: MCOLORS.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    button: {
-        borderRadius: 10,
-        padding: 10,
-        elevation: 2,
-    },
-    buttonClose: {
-        backgroundColor: MCOLORS.blue,
-    },
-    textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-    //end need to remove
 });
 
 export default HomeScreen;
