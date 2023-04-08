@@ -1,13 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSharedState } from '../contexts';
 import AddExpense from '../screens/AddExpense';
 import Tabs from './tabs';
 
 const Stack = createNativeStackNavigator();
 
-const ManageApp = ({ user }) => {
+type ManageAppProps = {
+    user: any;
+};
+
+const ManageApp: FC<ManageAppProps> = ({ user }) => {
     const { updateSharedState } = useSharedState();
     useEffect(() => {
         updateSharedState({ user });

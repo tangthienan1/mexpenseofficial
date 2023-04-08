@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { MFONTS, MSIZES } from '../consts';
 
-const InputTitle = ({ title }) => {
+type InputTitleProps = {
+    title: string;
+};
+
+const InputTitle:FC<InputTitleProps> = ({ title }) => {
     return <Text style={styles.inputTile}>{title}</Text>;
 };
 

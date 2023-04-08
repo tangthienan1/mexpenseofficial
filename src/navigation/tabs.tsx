@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { FC } from 'react';
+import { GestureResponderEvent, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { icons, MCOLORS } from '../consts';
 import Account from '../screens/Account';
@@ -11,7 +11,14 @@ import TripList from '../screens/TripList';
 
 const Tab = createBottomTabNavigator();
 
-const NewTripButton = ({ children, onPress }) => {
+type NewTripButtonProps = {
+    children: any;
+    onPress?: (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent
+      ) => void;
+};
+
+const NewTripButton: FC<NewTripButtonProps> = ({ children, onPress }) => {
     return (
         <View style={styles.selectedBtnWrapper}>
             <View style={styles.curve}>
@@ -32,7 +39,17 @@ const NewTripButton = ({ children, onPress }) => {
     );
 };
 
-const TabBarCustomButton = ({ accessibilityState, children, onPress }) => {
+type TabBarCustomButtonProps = {
+    accessibilityState: any;
+    children: any;
+    onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void;
+};
+
+const TabBarCustomButton: FC<TabBarCustomButtonProps> = ({
+    accessibilityState,
+    children,
+    onPress,
+}) => {
     var isSelected = accessibilityState.selected;
 
     if (isSelected) {

@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MCOLORS, MFONTS, MSIZES } from '../consts';
 
-type Props = {
+type TagProps = {
     tag: string;
 };
 
-const Tag: FC<Props> = ({ tag }) => {
+const Tag: FC<TagProps> = ({ tag }) => {
     const getBackgroundColor = () => {
         switch (tag) {
             case 'Business':

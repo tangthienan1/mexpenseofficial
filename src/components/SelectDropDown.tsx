@@ -15,6 +15,7 @@ type DataType = {
     key: string;
     value: string;
 };
+
 type SelectDropDownProps = {
     setSelected: any;
     placeholder?: string;

@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import DatePicker from 'react-native-date-picker';
 
-const CustomDatePicker = ({ open, date, setOpen, setDate }) => {
+type CustomDatePickerProps ={
+    open?: boolean,
+    date: Date,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setDate: React.Dispatch<any>,
+}
+
+const CustomDatePicker:FC<CustomDatePickerProps> = ({ open, date, setOpen, setDate }) => {
     return (
         <DatePicker
             mode="date"

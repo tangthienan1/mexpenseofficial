@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 import { MCOLORS, MFONTS, MSIZES } from '../consts';
 
-interface InputWithIconProps {
+type InputWithIconProps = {
     icon: any;
 }
 

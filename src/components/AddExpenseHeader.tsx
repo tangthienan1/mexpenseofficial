@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { icons, MFONTS, MSIZES } from '../consts';
 
-const AddExpenseHeader = ({ header, navigation }) => {
+type AccountOptionProps = {
+    header: string;
+    navigation: any;
+};
+
+const AddExpenseHeader:FC<AccountOptionProps> = ({ header, navigation }) => {
     return (
         <View style={styles.wrapper}>
             <TouchableOpacity style={styles.image} onPress={() => navigation.goBack()}>
